@@ -15,7 +15,7 @@ function Contects() {
       message: data.message,
     };
     await axios
-      .post("http://localhost:4000/contect/contect", ContectInfo)
+      .post("https://ebookclub-b.vercel.app/contect/contect", ContectInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data) {
