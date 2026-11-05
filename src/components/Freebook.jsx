@@ -74,7 +74,7 @@ function Freebook() {
         <div>
           <Slider {...settings}>
             {book.map((items) => (
-              <Cards item={items} key={items.id} />
+              <Cards item={items} key={items._id} />
             ))}
           </Slider>
         </div>
