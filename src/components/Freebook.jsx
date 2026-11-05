@@ -8,20 +8,29 @@ import { useState, useEffect } from "react";
 import Cards from "./Cards";
 function Freebook() {
   const [book, setBook] = useState([]);
-  useEffect(() => {
-    const getBook = async () => {
-      try {
-        const res = await axios.get("https://ebookclub-b.vercel.app/book");
+ useEffect(() => {
+  const getBook = async () => {
+    try {
+      const res = await axios.get(
+        "https://ebookclub-b.vercel.app/book"
+      );
 
-        const DATA = res.data.filter((data) => data.category === "Free");
-        console.log(DATA);
-        setBook(DATA);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getBook();
-  }, []);
+      console.log("API Response:", res.data);
+
+      // Supports both array and object responses
+      const books = Array.isArray(res.data)
+        ? res.data
+        : res.data.books || [];
+
+      setBook(books);
+
+    } catch (error) {
+      console.error("Book Fetch Error:", error);
+    }
+  };
+
+  getBook();
+}, []);
   //const filterData = list.filter((data) => data.category === "Free");
   var settings = {
     dots: true,

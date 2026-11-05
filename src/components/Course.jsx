@@ -6,18 +6,29 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 function Course() {
   const [book, setBook] = useState([]);
-  useEffect(() => {
-    const getBook = async () => {
-      try {
-        const res = await axios.get("https://ebookclub-b.vercel.app/book");
-        console.log(res.data);
-        setBook(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getBook();
-  }, []);
+ useEffect(() => {
+  const getBook = async () => {
+    try {
+      const res = await axios.get(
+        "https://ebookclub-b.vercel.app/book"
+      );
+
+      console.log("API Response:", res.data);
+
+      // Supports both array and object responses
+      const books = Array.isArray(res.data)
+        ? res.data
+        : res.data.books || [];
+
+      setBook(books);
+
+    } catch (error) {
+      console.error("Book Fetch Error:", error);
+    }
+  };
+
+  getBook();
+}, []);
   return (
     <>
       <div className="max-w-screen-2xl container mx-auto md:px-20 px-4">
